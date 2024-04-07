@@ -20,13 +20,15 @@ We decided to create a new concept keyborad for the AR world, solving this probl
 
 `algorithms.py`: handles prompting and processing of responses.
 
-`api_keys.py`: holds the api keys (empty, modify manually).
-
 `prompts.py`: final prompts used for Gemini.
 
 `whisper_speech_to_text.py`: speech to text engine using Whisper.
 
 **`typing_interface.py`: final streamlit app**
+
+`environment.yml`: env config file for conda use (see how to run below).
+
+`requirements.txt`: env config file for pip use (see how to run below).
 
 ### mouse control interface:
 |file name|mouse movement|mouse left click|features
@@ -39,18 +41,39 @@ We decided to create a new concept keyborad for the AR world, solving this probl
 
 ## 🏃 How To Run
 Follow these steps to get the application running: 
-1. Clone the GitHub repository.
-2. Manually insert the 2 api keys required into the `api_keys.py` file.
-3. Install environment by using: `DECIDE HERE`
-4. run `streamlit run typing_interface.py` from terminal.
-5. repeat 1,2,3 in a new project (if using pycharm) or new workspace (if using vscode).
-6. run `mouse_control_with_fist_stop_mouse.py`.
-7. navigate to the window with the streamlit app running and start typing.
+1. Click: https://typing-future-iis.streamlit.app/
+2. Clone the GitHub repository to your desired location:
+   ```
+   git clone https://github.com/Jacob-Link/typing_future_iis_project.git
+   ```
+   Navigate to the git directory:
+   ```
+   cd typing_future_iis_project
+   ```
+3. Create conda environment:
+   ```
+   conda env create --file=environment.yml
+   ```
+4. Activate environment created:
+   ```
+   conda activate typing_future_env
+   ```
+5. Run the mouse control interface chosen:
+   ```
+   python mouse_control_with_fist_stop_mouse.py
+   ```
+6. Navigate to the window with the streamlit app running (url in point 1) and start typing.
    
 > 🔔 **Import Notes**:
-> - Make sure you are connected to 1 display only! the app does not support multiple displays.
+> - If you are using the mouse control program - make sure you are connected to 1 display only!the app does not support multiple displays.
 > 
-> - running 2 seperate projects (streamlit app & mouse control) is essential to fully experience the final product. You can also assess the keyboard alone wihtout the mouse control app.
+> - You can assess the keyboard alone without the mouse control app, by exploring the url presented in (1)
+> - If you are using a pycharm project, you may prefer using the:
+    ```
+   pip install -r requirements.txt
+   ```
+   instead of conda environments
+
 
 ### Keyborad Result
 ![result](images/keyboard_result.png)
