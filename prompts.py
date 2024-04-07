@@ -1,8 +1,4 @@
 def get_prompt_for_next_word(current_sentence: str, style: str, mood: str, refresh=False, current_words=None):
-    # word_prompt = f"give me 7 options to continue the next word of the sentence: '{current_sentence}...'," \
-    #                       f" the output should be in the format: 'word_1'\n'word_2'\n'word_3' and so on." \
-    #                       f"ASSURE YOU ONLY PREDICT THE NEXT WORD!"
-
     if refresh:
         refresh_prompt1 = f"Additionally, you may not use any of the following words: {current_words}, so be creative. Do not repeat words either, and make sure only single words are provided, not phrases."
         refresh_prompt2 = f" and may not contain any of these given words: {current_words}."

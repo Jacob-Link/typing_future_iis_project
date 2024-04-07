@@ -12,11 +12,11 @@ from whisper_speech_to_text import whisper_stt
 NUM_WORDS = 7
 NUM_PHRASES = 5
 
-WHISPER_API_KEY = st.secrets["WHISPER_API_KEY"]
-GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+WHISPER_API_KEY = st.secrets["WHISPER_API_KEY"]  # extract from the streamlit env variables defined in app deployment
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]  # extract from the streamlit env variables defined in app deployment
 
-modal1 = Modal(key="up", title="Thank you for your feedback!")
-modal2 = Modal(key="down", title="We're Sorry! Thank you for your feedback")
+modal1 = Modal(key="up", title="Thank you for your feedback!")  # thumb up feedback
+modal2 = Modal(key="down", title="We're Sorry! Thank you for your feedback")  # thumb down feedback
 
 # Input App - for style, segmented bar
 sac.segmented(
@@ -43,26 +43,26 @@ if 'sentences' not in st.session_state:
 if 'first' not in st.session_state:
     st.session_state.first = True
 
+# built to get the first prediction which is rule based and initialize the model in a session_state, will only run once
 if st.session_state.first:
-    # built to get the first prediction which is rule based and initialize the model in a session_state, will run once
-    st.session_state.refreshed_words = []
-    st.session_state.refreshed_phrases = []
-    st.session_state.first = False
-    st.session_state.first_recommendation = True
-    st.session_state.prev_mood = "😐 neutral"
-    st.session_state.prev_app = ' text message conversation'
-    st.session_state.emotion = 'neutral'
-    st.session_state.need_to_refresh_words = False
-    st.session_state.previous_input = []
+    st.session_state.refreshed_words = []  # keeps track of the words NOT to repeat
+    st.session_state.refreshed_phrases = []  # keeps track of the phrases NOT to repeat
+    st.session_state.first = False  # initialization part of the app
+    st.session_state.first_recommendation = True  # start of sentence
+    st.session_state.prev_mood = "😐 neutral"  # we use prev mood to track if a user has changed the mood
+    st.session_state.prev_app = ' text message conversation'  # same concept as prev mood
+    st.session_state.emotion = 'neutral'  # default emotion
+    st.session_state.need_to_refresh_words = False  # bool used to update the words if mood or app were changed
+    st.session_state.previous_input = []  # variable used to keep track of the user history submitted in a session
 
-    # gemini model
+    # gemini model initialization
     gemini_api_token = GEMINI_API_KEY
     genai.configure(api_key=gemini_api_token)
     model = genai.GenerativeModel('gemini-pro')
     st.session_state.model = model
 
+# first recommendation - after every submitted sentence the code will enter this statement
 if st.session_state.first_recommendation:
-    # first recommendation
     st.session_state.first_recommendation = False
     st.session_state.words = algorithms.get_first_word_predictions(app_style_index=st.session_state["input_app"])
     st.session_state.sentences = algorithms.get_first_sentence_predictions(
@@ -71,6 +71,7 @@ if st.session_state.first_recommendation:
     st.rerun()
 
 
+# every time a users changes the app style or the mood we will refresh the recommendations presented
 def refresh_words(app_style=None, spinner_label='Loading inputs...'):
     with st.spinner(spinner_label):
         # time.sleep(3)  # use this if you want to see loading affect if the generation is too quick...
@@ -101,6 +102,7 @@ if st.session_state.need_to_refresh_words:
     refresh_words(st.session_state.app_style)
 
 
+# once a button is pressed, we need to add the chosen text to the session state and generate new recommendations
 def handle_text_chosen(text, from_whisper=False):
     text_to_add = text.replace(".", "")
     if st.session_state.message_input == "":
@@ -143,17 +145,9 @@ def handle_text_chosen(text, from_whisper=False):
     st.rerun()
 
 
-def update_message_input(new_text):
-    st.session_state.message_input = new_text
-
-
-def handle_click(key):
-    # Handle the key press event here
-    st.text_input("You pressed:", key)
-
-
+# handles refresh button below the word and phrase predictions, users press to refresh the recommendations
 def refresh_button(words=True):
-    if words:
+    if words:  # the refresh button on the left was pressed
         st.session_state.refreshed_words.append(st.session_state.words)
         with st.spinner(''):
 
@@ -175,7 +169,7 @@ def refresh_button(words=True):
                                                                          words=st.session_state.refreshed_words)
 
 
-    else:
+    else:  # the refresh button on the right was pressed
         st.session_state.refreshed_phrases.append(st.session_state.sentences)
         with st.spinner(''):
 
@@ -199,6 +193,7 @@ def refresh_button(words=True):
     st.rerun()
 
 
+# user would like to erase the last word
 def handle_backspace(text):
     words = text.split()
     if words:
@@ -212,7 +207,7 @@ def handle_backspace(text):
 # defining app_style from segmented slider
 if st.session_state["input_app"] == 0:
     st.session_state.app_style = ' facebook social media post'
-    if st.session_state.prev_app != st.session_state.app_style:
+    if st.session_state.prev_app != st.session_state.app_style:  # if the app was changed
         st.session_state.prev_app = st.session_state.app_style
 
         if st.session_state.message_input == "":
@@ -223,7 +218,7 @@ if st.session_state["input_app"] == 0:
 
 elif st.session_state["input_app"] == 1:
     st.session_state.app_style = ' text message conversation'
-    if st.session_state.prev_app != st.session_state.app_style:
+    if st.session_state.prev_app != st.session_state.app_style:  # if the app was changed
         st.session_state.prev_app = st.session_state.app_style
 
         if st.session_state.message_input == "":
@@ -234,7 +229,7 @@ elif st.session_state["input_app"] == 1:
 
 elif st.session_state["input_app"] == 2:
     st.session_state.app_style = ' search query'
-    if st.session_state.prev_app != st.session_state.app_style:
+    if st.session_state.prev_app != st.session_state.app_style:  # if the app was changed
         st.session_state.prev_app = st.session_state.app_style
 
         if st.session_state.message_input == "":
@@ -245,7 +240,7 @@ elif st.session_state["input_app"] == 2:
 
 elif st.session_state["input_app"] == 3:
     st.session_state.app_style = ' professional linkedin post'
-    if st.session_state.prev_app != st.session_state.app_style:
+    if st.session_state.prev_app != st.session_state.app_style:  # if the app was changed
         st.session_state.prev_app = st.session_state.app_style
 
         if st.session_state.message_input == "":
@@ -287,7 +282,7 @@ with cont:
                     if st.button(text):
                         handle_text_chosen(text)
 
-# Bottom buttons layout
+# buttons under the words and phrases layout (thumbs up and down & refresh x2)
 col3, col4, col5, col6, col7, col8, col9 = st.columns([1, 1, 1, 10, 1, 1, 1])
 with col3:
     if st.button("🔄", key='left_ref'):
@@ -319,7 +314,7 @@ if modal2.is_open():
         st.write("You can always get new suggestions by clicking the refresh button.")
         st.write("Please close the popup to return to the typing screen.")
 
-# text bar and submit button
+# text bar and submit button - created using the form object
 with st.form('chat_input_form'):
     text_bar_col1, text_bar_col2, text_bar_col3 = st.columns([13, 1, 1])
 
@@ -346,14 +341,14 @@ with st.form('chat_input_form'):
         time.sleep(5)
         st.rerun()
 
-# mood slider
+# mood slider at the lower part of the app
 st.select_slider("Shift your mood by changing the slider",
                  ["😡 angry", "😔 sad", "🧐 serious", "😐 neutral", "😊 happy", "😂 funny"], key="mood",
                  value=st.session_state.prev_mood)
 
 if st.session_state.mood == "😂 funny":
     st.session_state.emotion = 'funny'
-    if st.session_state.prev_mood != st.session_state.mood:
+    if st.session_state.prev_mood != st.session_state.mood:  # if the mood was changed
         st.session_state.prev_mood = st.session_state.mood
 
         if st.session_state.message_input == "":
@@ -365,7 +360,7 @@ if st.session_state.mood == "😂 funny":
 
 elif st.session_state.mood == "😊 happy":
     st.session_state.emotion = 'happy'
-    if st.session_state.prev_mood != st.session_state.mood:
+    if st.session_state.prev_mood != st.session_state.mood:  # if the mood was changed
         st.session_state.prev_mood = st.session_state.mood
 
         if st.session_state.message_input == "":
@@ -376,7 +371,7 @@ elif st.session_state.mood == "😊 happy":
 
 elif st.session_state.mood == "😐 neutral":
     st.session_state.emotion = 'neutral'
-    if st.session_state.prev_mood != st.session_state.mood:
+    if st.session_state.prev_mood != st.session_state.mood:  # if the mood was changed
         st.session_state.prev_mood = st.session_state.mood
 
         if st.session_state.message_input == "":
@@ -387,7 +382,7 @@ elif st.session_state.mood == "😐 neutral":
 
 elif st.session_state.mood == "🧐 serious":
     st.session_state.emotion = 'serious'
-    if st.session_state.prev_mood != st.session_state.mood:
+    if st.session_state.prev_mood != st.session_state.mood:  # if the mood was changed
         st.session_state.prev_mood = st.session_state.mood
 
         if st.session_state.message_input == "":
@@ -398,7 +393,7 @@ elif st.session_state.mood == "🧐 serious":
 
 elif st.session_state.mood == "😔 sad":
     st.session_state.emotion = 'sad'
-    if st.session_state.prev_mood != st.session_state.mood:
+    if st.session_state.prev_mood != st.session_state.mood:  # if the mood was changed
         st.session_state.prev_mood = st.session_state.mood
 
         if st.session_state.message_input == "":
@@ -409,7 +404,7 @@ elif st.session_state.mood == "😔 sad":
 
 elif st.session_state.mood == "😡 angry":
     st.session_state.emotion = 'angry'
-    if st.session_state.prev_mood != st.session_state.mood:
+    if st.session_state.prev_mood != st.session_state.mood:  # if the mood was changed
         st.session_state.prev_mood = st.session_state.mood
 
         if st.session_state.message_input == "":
@@ -418,14 +413,14 @@ elif st.session_state.mood == "😡 angry":
             refresh_words()
         st.rerun()
 
-# Input Type
+# Input type buttons - the mouse controlled text input or the mic for speech to text
 sac.segmented(
     items=[
         sac.SegmentedItem(icon='mic'),
         sac.SegmentedItem(icon='eye'),
     ], size=20, radius=50, align='center', use_container_width=True, index=1, key='input_type', return_index=True)
 
-if st.session_state['input_type'] == 0:
+if st.session_state['input_type'] == 0:  # speech to text
     whisper_text = whisper_stt(openai_api_key=WHISPER_API_KEY, language='en', just_once=True)
 
     if whisper_text:
@@ -437,6 +432,7 @@ if st.session_state['input_type'] == 0:
             else:
                 handle_text_chosen(whisper_text.lower(), from_whisper=True)
 
+# user chat history button at the bottom part of the app
 col10, col11, col12 = st.columns([5, 5, 5])
 with col11:
     chat_history = st.session_state.previous_input[::-1]
@@ -444,5 +440,6 @@ with col11:
         for sentence in chat_history:
             st.write(sentence)
 
+# for debugging use:
 # st.header("Debug:")
 # st.write(st.session_state)
