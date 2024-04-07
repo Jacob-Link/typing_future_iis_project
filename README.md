@@ -68,11 +68,7 @@ Follow these steps to get the application running:
 > - If you are using the mouse control program - make sure you are connected to 1 display only!the app does not support multiple displays.
 > 
 > - You can assess the keyboard alone without the mouse control app, by exploring the url presented in (1)
-> - If you are using a pycharm project, you may prefer using the:
-    ```
-   pip install -r requirements.txt
-   ```
-   instead of conda environments
+> - If you are using a pycharm project, you may prefer using the: `pip install -r requirements.txt` instead of conda environments
 
 
 ### Keyborad Result
