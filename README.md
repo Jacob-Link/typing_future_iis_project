@@ -26,9 +26,7 @@ We decided to create a new concept keyborad for the AR world, solving this probl
 
 **`typing_interface.py`: final streamlit app**
 
-`environment.yml`: env config file for conda use (see how to run below).
-
-`requirements.txt`: env config file for pip use (see how to run below).
+`environment.yml`: environment config file (see use in 'how to run' below).
 
 ### mouse control interface:
 |file name|mouse movement|mouse left click|features
@@ -68,7 +66,6 @@ Follow these steps to get the application running:
 > - If you are using the mouse control program - make sure you are connected to 1 display only!the app does not support multiple displays.
 > 
 > - You can assess the keyboard alone without the mouse control app, by exploring the url presented in (1)
-> - If you are using a pycharm project, you may prefer using the: `pip install -r requirements.txt` instead of conda environments
 
 
 ### Keyborad Result
@@ -82,10 +79,10 @@ idanhorowitz@campus.technion.ac.il
 
 ## 📃 License
 
-Use wisely, might be adictive, beware.
+Use wisely, might be addictive.
 
 ----------
 
-We hope you enjoyed the experience
+We hope you enjoyed the experience.
 
 ❤️ 
