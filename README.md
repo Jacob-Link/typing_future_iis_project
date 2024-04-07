@@ -8,6 +8,7 @@ Submitted by:
 
 ## 📝 Description
 We believe there is a new typing method which will emerge in the near future, due to the augmented reality tech being introduced to the word. 
+
 When comming accross the Wall Street Journal's review of the Apple VisionPro,
 
 They noted: "...one big problem." (see minute 1:49: https://youtu.be/8xI10SFgzQ8?si=WRSPMa4We3VgLh3Q&t=105) 
