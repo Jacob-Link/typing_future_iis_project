@@ -55,15 +55,15 @@ if st.session_state.first:
     st.session_state.need_to_refresh_words = False  # bool used to update the words if mood or app were changed
     st.session_state.previous_input = []  # variable used to keep track of the user history submitted in a session
 
-    # gemini model initialization
-    gemini_api_token = GEMINI_API_KEY
-    genai.configure(api_key=gemini_api_token)
-    model = genai.GenerativeModel('gemini-pro')
-    st.session_state.model = model
-
 # first recommendation - after every submitted sentence the code will enter this statement
 if st.session_state.first_recommendation:
     st.session_state.first_recommendation = False
+
+    # gemini model initialization - repeated to assure the init dosnt timeout when deployed
+    genai.configure(api_key=GEMINI_API_KEY)
+    model = genai.GenerativeModel('gemini-pro')
+    st.session_state.model = model
+
     st.session_state.words = algorithms.get_first_word_predictions(app_style_index=st.session_state["input_app"])
     st.session_state.sentences = algorithms.get_first_sentence_predictions(
         app_style_index=st.session_state["input_app"],
