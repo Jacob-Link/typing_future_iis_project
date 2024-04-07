@@ -61,8 +61,8 @@ Follow these steps to get the application running:
    ```
    python mouse_control_with_fist_stop_mouse.py
    ```
-> 🔔 **Notes**:
-> This might request the permission for terminal to access camera and mouse control. rerun 5 after granting permission.
+   > 🔔 **Note**:
+   > This might request the permission for terminal to access camera and mouse control. rerun 5 after granting permission.
 
 6. To start controling the mouse with your nose - present the camera with your left hand "open-palm" gesture.
  
