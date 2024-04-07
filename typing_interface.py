@@ -12,8 +12,8 @@ from whisper_speech_to_text import whisper_stt
 NUM_WORDS = 7
 NUM_PHRASES = 5
 
-WHISPER_API_KEY = st.secrets["WHISPER_API_KEY"]  # extracts from streamlit app deployed
-GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]  # extracts from streamlit app deployed
+WHISPER_API_KEY = st.secrets["WHISPER_API_KEY"]
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 
 modal1 = Modal(key="up", title="Thank you for your feedback!")
 modal2 = Modal(key="down", title="We're Sorry! Thank you for your feedback")
@@ -45,9 +45,6 @@ if 'first' not in st.session_state:
 
 if st.session_state.first:
     # built to get the first prediction which is rule based and initialize the model in a session_state, will run once
-    if WHISPER_API_KEY == "" or GEMINI_API_KEY == "":
-        raise "API KEY ERROR: please upload the api keys to the api_keys.py file"
-
     st.session_state.refreshed_words = []
     st.session_state.refreshed_phrases = []
     st.session_state.first = False
