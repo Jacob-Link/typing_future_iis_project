@@ -40,7 +40,7 @@ We decided to create a new concept keyborad for the AR world, solving this probl
 
 ## 🏃 How To Run
 Follow these steps to get the application running: 
-1. Click: https://typing-future-iis.streamlit.app/
+1. Click: https://typing-future-iis.streamlit.app
 2. Clone the GitHub repository to your desired location:
    ```
    git clone https://github.com/Jacob-Link/typing_future_iis_project.git
@@ -61,7 +61,12 @@ Follow these steps to get the application running:
    ```
    python mouse_control_with_fist_stop_mouse.py
    ```
-6. Navigate to the window with the streamlit app running (url in point 1) and start typing.
+> 🔔 **Notes**:
+> This might request the permission for terminal to access camera and mouse control. rerun 5 after granting permission.
+
+6. To start controling the mouse with your nose - present the camera with your left hand "open-palm" gesture.
+ 
+7. Navigate to the window with the streamlit app running (url in point 1) and start typing.
    
 > 🔔 **Import Notes**:
 > - If you are using the mouse control program - make sure you are connected to 1 display only!the app does not support multiple displays.
