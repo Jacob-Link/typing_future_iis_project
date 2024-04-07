@@ -6,7 +6,7 @@ dependencies:
   - pip=23.1.2
   - pip:
     - mediapipe==0.10.9
-    - protobuf==3.20
+    - protobuf==3.20.3
     - streamlit==1.33.0
     - streamlit-antd-components==0.3.2
     - streamlit-modal==0.1.2
