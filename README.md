@@ -86,9 +86,9 @@ idanhorowitz@campus.technion.ac.il
 ## 📃 License
 
 Use wisely, might be addictive.
-
+If you are from 🍎, and want to use this to upgrade typing in the Vision Pro, we're open to offers. 😉
 ----------
 
 We hope you enjoyed the experience.
-
 ❤️ 
+If you liked this, give us a ⭐.  
