@@ -7,7 +7,7 @@ Submitted by:
 - Jacob Link
 
 ## 📝 Description
-We believe there is a new typing method which will emerge in the near future, due to the augmented reality tech being introduced to the word. 
+We believe there is a new typing method which will emerge in the near future, due to the augmented reality tech being introduced to the world 🌎 
 
 When comming accross the Wall Street Journal's review of the Apple VisionPro,
 
