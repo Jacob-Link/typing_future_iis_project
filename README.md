@@ -1,4 +1,4 @@
-# 🚀 The Future of Typing
+# 🚀 The Future of Typing ⌨️
 
 ## Final Project Intelligent Interactive Systems (Winter 2023/24 Semester)
 
