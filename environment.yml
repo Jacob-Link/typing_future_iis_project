@@ -1,8 +1,7 @@
-name: typing_future_env
+name: typing_future_env_test
 channels:
   - defaults
 dependencies:
-  - conda=24.1.2
   - python=3.10.9
   - pip=23.1.2
   - pip:
