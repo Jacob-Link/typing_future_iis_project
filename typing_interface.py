@@ -117,7 +117,6 @@ def handle_text_chosen(text, from_whisper=False):
     else:
         display_loading_text = 'Loading inputs...'
     with st.spinner(display_loading_text):
-        # time.sleep(3)  # use this if you want to see loading affect if the generation is too quick...
         st.session_state.words = algorithms.get_word_predictions(model=st.session_state.model,
                                                                  current_sentence=st.session_state.message_input,
                                                                  style=st.session_state.app_style,

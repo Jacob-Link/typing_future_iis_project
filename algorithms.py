@@ -1,4 +1,3 @@
-# pip install -q -U google-generativeai
 import google.generativeai as genai
 import prompts
 import random

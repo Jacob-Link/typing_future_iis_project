@@ -1,4 +1,4 @@
-name: typing_future_env_test
+name: typing_future_env
 channels:
   - defaults
 dependencies:
