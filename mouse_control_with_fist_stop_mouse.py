@@ -143,12 +143,12 @@ def run_apple_vision_controller(scale_x_param: float,
                                 click_threshold: float,
                                 release_click_lock_threshold: float,
                                 fist_palm_threshold: float):
-    move_mouse_lock = True
     cam = cv2.VideoCapture(0)
     face_mesh = mp.solutions.face_mesh.FaceMesh(refine_landmarks=True)
     hand_detector = mp.solutions.hands.Hands()
     screen_w, screen_h = pyautogui.size()  # monitor resolution
 
+    move_mouse_lock = True
     one_click_lock = False
     count_clicks = 1
     while True:
@@ -181,7 +181,7 @@ def run_apple_vision_controller(scale_x_param: float,
             # move mouse to desired location on screen
             pyautogui.moveTo(screen_x, screen_y, 0.1, pyautogui.easeInOutQuad)
 
-        #
+        # control the clicks with right hand and the move_mouse_lock with left hand
         if hands_landmarks_points:
             points = hands_landmarks_points
             labels = [MessageToDict(i)['classification'][0]['label'] for i in hand_right_left]
